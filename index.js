@@ -21,7 +21,6 @@ app.get('/', (req, res) => {
 });
 
 app.post("/import", upload.single("file"), (req, res, next) => {
-    backURL = req.header('Referer') || '/';
     if (req.file) {
         const tempPath = req.file.path;
         const targetPath = path.join(__dirname, `./file/cert.json`);
