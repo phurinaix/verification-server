@@ -27,10 +27,12 @@ app.post("/import", upload.single("file"), (req, res, next) => {
         const targetPath = path.join(__dirname, `./file/cert.json`);
         fs.rename(tempPath, targetPath, err => {
             if (err) throw err;
-            res.redirect(backURL);
+            res.send(JSON.stringify({status: 'success'}));
         });
+    } else if (req.body.url) {
+        res.send(JSON.stringify({status: 'success url', url: req.body.url}));
     } else {
-        res.redirect(`${backURL}?status=empty`);
+        res.send(JSON.stringify({status: 'fail'}));
     }
 });
 
